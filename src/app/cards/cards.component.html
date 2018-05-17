@@ -1,3 +1,5 @@
-<p>
-  cards works!
-</p>
+<ul id="thumbnailsList">
+  <li *ngFor="let image of imgArr" >
+    <img src="{{image.url}}" id="{{image.opened}}"  class="tn" (click)="revealCard($event); image.opened = !image.opened">
+  </li>
+</ul>
