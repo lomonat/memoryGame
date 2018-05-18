@@ -1,5 +1,6 @@
 <ul id="thumbnailsList">
   <li *ngFor="let image of imgArr" >
-    <img src="{{image.url}}" id="{{image.opened}}"  class="tn" (click)="revealCard($event); image.opened = !image.opened">
+    <img src="{{image.url}}" id="{{image.id}}"  class="tn {{image.opened}}"
+         (click)="revealCard($event, image.opened)">
   </li>
 </ul>
