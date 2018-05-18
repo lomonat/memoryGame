@@ -11,10 +11,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./cards.component.css']
 })
 export class CardsComponent implements OnInit {
- public imgArr = [];
+
+
+  public imgArr = [];
  public matchingPairs = [];
  public flag = false;
   public newTmp = {};
+ public objectKeys;
 
 
   ngOnInit() {
@@ -36,14 +39,17 @@ export class CardsComponent implements OnInit {
       this.newTmp[i] = tmp;
       //cloning object and push 2 times - we need pairs.
 
-      this.imgArr.push(tmp);
+  //    this.imgArr.push(tmp);
       tmp2 = JSON.parse(JSON.stringify(tmp));
-      this.imgArr.push(tmp2);
+    //  this.imgArr.push(tmp2);
+      this.newTmp[i+8] = tmp2;
 
 
     }
-    console.log(this.newTmp);
-    this.shuffle(this.imgArr);
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
+    // Object.keys() returns an array whose elements are strings corresponding to the enumerable properties found directly upon object.
+    this.objectKeys = Object.keys;
+  //  this.shuffle(this.imgArr);
 
 
     return this.imgArr;

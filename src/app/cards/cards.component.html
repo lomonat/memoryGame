@@ -1,6 +1,17 @@
+<!--
 <ul id="thumbnailsList">
   <li *ngFor="let image of imgArr" >
     <img src="{{image.url}}" id="{{image.id}}"  class="tn {{image.opened}}"
+         (click)="revealCard($event, image.opened)">
+  </li>
+</ul>
+-->
+<div *ngFor="let key of objectKeys(newTmp)">{{key + ' : ' + newTmp[key]}}</div>
+
+
+<ul id="thumbnailsList">
+  <li *ngFor="let key of objectKeys(newTmp)" >
+    <img src="{{newTmp[key].url}}" id="{{newTmp[key].id}}"  class="tn"
          (click)="revealCard($event, image.opened)">
   </li>
 </ul>
