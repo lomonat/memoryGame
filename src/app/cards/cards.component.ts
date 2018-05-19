@@ -3,92 +3,79 @@
 *  licensed under the CC0 Creative Commons
 */
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterContentInit, ChangeDetectionStrategy} from '@angular/core';
 
 @Component({
+  // https://angular-2-training-book.rangle.io/handout/change-detection/change_detection_strategy_onpush.html
+  // cgeck new raference to data
   selector: 'app-cards',
   templateUrl: './cards.component.html',
   styleUrls: ['./cards.component.css']
 })
-export class CardsComponent implements OnInit {
+export class CardsComponent implements OnInit, AfterContentInit {
 
-
-  public imgArr = [];
- public matchingPairs = [];
- public flag = false;
+  public matchingPairs = [];
   public newTmp = {};
  public objectKeys;
+ public data = {};
+ public arrayOfObject = [];
+ public coverImg = 'assets/img/12.jpg';
 
 
   ngOnInit() {
-  this.retrieveImg();
+  this.retrieveImg(1,9,0);
+  this.retrieveImg(9,17,8);
   }
   // make an OBject with properties to display and identify the images
-  public retrieveImg() {
+  public retrieveImg(index, length, helper) {
   let tmp = {};
-  let tmp2 = {};
 
-
-    for (let i = 1; i < 9; i++) {
+    for (let i = index; i < length; i++) {
       tmp = {
-        'url': 'assets/img/' + i + '.jpg',
+        'url': 'assets/img/' + (i-helper) + '.jpg',
         'opened': false,
         'id': i
       };
 
       this.newTmp[i] = tmp;
-      //cloning object and push 2 times - we need pairs.
-
-  //    this.imgArr.push(tmp);
-      tmp2 = JSON.parse(JSON.stringify(tmp));
-    //  this.imgArr.push(tmp2);
-      this.newTmp[i+8] = tmp2;
-
-
+      this.arrayOfObject.push(tmp);
     }
-    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
-    // Object.keys() returns an array whose elements are strings corresponding to the enumerable properties found directly upon object.
-    this.objectKeys = Object.keys;
-  //  this.shuffle(this.imgArr);
+    console.log(this.newTmp);
+    console.log(this.arrayOfObject);
 
-
-    return this.imgArr;
   }
 
-  revealCard(event, imgFlag) {
-    console.log(event.target.id, imgFlag);
-   // image.opened = !image.opened
-    if(!imgFlag) {
+
+  revealCard(event) {
+    console.log(event.target.id, event.target.classList[1]);
+    if(!(this.newTmp[event.target.id].opened)) {
       if (this.matchingPairs.length < 2) {
         this.matchingPairs.push(event.target.id);
         console.log("push more", this.matchingPairs);
+        this.arrayOfObject[(event.target.id-1)].opened = true;
+        console.log(this.arrayOfObject);
+        console.log(this.newTmp);
         if (this.matchingPairs.length == 2) {
-          if (this.matchingPairs[0] == this.matchingPairs[1]) {
+          if (this.newTmp[this.matchingPairs[0]].url == this.newTmp[this.matchingPairs[1]].url ) {
             console.log("found", this.matchingPairs);
+            this.matchingPairs = [];
+          } else {
+            console.log(this.newTmp);
+
+            console.log("not found");
+            setTimeout(()=>{
+              console.log(this.arrayOfObject);
+              for (let i = 0; i < this.matchingPairs.length; i ++ ) {
+                  this.arrayOfObject[(this.matchingPairs[i]-1)].opened = false;
+              }
+              console.log(this.arrayOfObject);
+              this.matchingPairs = [];
+
+            }, 2000);
           }
-          this.matchingPairs = [];
         }
       }
     }
+    return this.newTmp
   }
-  //Fisher-Yates (aka Knuth) O(n) Shuffle https://bost.ocks.org/mike/shuffle/
-   shuffle(array) {
-  var currentIndex = array.length, temporaryValue, randomIndex;
-
-  // While there remain elements to shuffle...
-  while (0 !== currentIndex) {
-
-    // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-
-    // And swap it with the current element.
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-  }
-
-  return array;
-}
-
 }
