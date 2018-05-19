@@ -16,10 +16,8 @@ export class CardsComponent implements OnInit, AfterContentInit {
 
   public matchingPairs = [];
   public newTmp = {};
- public objectKeys;
- public data = {};
  public arrayOfObject = [];
- public coverImg = 'assets/img/12.jpg';
+ public coverImg = 'assets/img/cover.jpg';
 
 
   ngOnInit() {
@@ -40,14 +38,10 @@ export class CardsComponent implements OnInit, AfterContentInit {
       this.newTmp[i] = tmp;
       this.arrayOfObject.push(tmp);
     }
-    console.log(this.newTmp);
-    console.log(this.arrayOfObject);
-
   }
 
 
   revealCard(event) {
-    console.log(event.target.id, event.target.classList[1]);
     if(!(this.newTmp[event.target.id].opened)) {
       if (this.matchingPairs.length < 2) {
         this.matchingPairs.push(event.target.id);
@@ -60,9 +54,6 @@ export class CardsComponent implements OnInit, AfterContentInit {
             console.log("found", this.matchingPairs);
             this.matchingPairs = [];
           } else {
-            console.log(this.newTmp);
-
-            console.log("not found");
             setTimeout(()=>{
               console.log(this.arrayOfObject);
               for (let i = 0; i < this.matchingPairs.length; i ++ ) {
