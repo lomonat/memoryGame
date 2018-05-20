@@ -1,6 +1,10 @@
 
 <ul id="thumbnailsList">
   <li *ngFor="let key of arrayOfObject | shuffle" >
-    <img  [src]="key.opened == true? key.url : coverImg" id="{{key.id}}" class="tn {{key.opened}}" (click)="revealCard($event)">
+    <div class="container thumbnailsList">
+      <img  [src]="coverImg" class="coverImg" id="{{key.id}}" (click)="revealCard($event)">
+     <img  [src]="key.url" class="secondImg"  [style.z-index]="key.opened == true? 2 : 0">
+    </div>
   </li>
 </ul>
+

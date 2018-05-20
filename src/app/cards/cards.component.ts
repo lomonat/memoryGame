@@ -21,14 +21,14 @@ export class CardsComponent implements OnInit, AfterContentInit {
 
 
   ngOnInit() {
-  this.retrieveImg(1,9,0);
-  this.retrieveImg(9,17,8);
+  this.retrieveImg(1,8,0);
+  this.retrieveImg(this.arrayOfObject.length+1,this.arrayOfObject.length*2,this.arrayOfObject.length);
   }
   // make an OBject with properties to display and identify the images
   public retrieveImg(index, length, helper) {
   let tmp = {};
 
-    for (let i = index; i < length; i++) {
+    for (let i = index; i <= length; i++) {
       tmp = {
         'url': 'assets/img/' + (i-helper) + '.jpg',
         'opened': false,
