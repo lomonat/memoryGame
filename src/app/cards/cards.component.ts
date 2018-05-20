@@ -11,7 +11,7 @@
 *  helps to preserve the order of objects in the array
 */
 
-import { Component, OnInit, AfterContentInit, ChangeDetectionStrategy} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 
 @Component({
 
@@ -19,7 +19,7 @@ import { Component, OnInit, AfterContentInit, ChangeDetectionStrategy} from '@an
   templateUrl: './cards.component.html',
   styleUrls: ['./cards.component.css']
 })
-export class CardsComponent implements OnInit, AfterContentInit {
+export class CardsComponent implements OnInit {
 
   public matchingPairs = [];
   public newTmp = {};
