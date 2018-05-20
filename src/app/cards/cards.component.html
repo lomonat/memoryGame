@@ -1,4 +1,7 @@
-
+<!-- load both images: the cover and the card at once
+depending on object's property "opened" set z-index of
+seconds images ( the actual images) bigger than cover and back
+-->
 <ul id="thumbnailsList">
   <li *ngFor="let key of arrayOfObject | shuffle" >
     <div class="container thumbnailsList">
